@@ -31,8 +31,8 @@ public class PlayerController : MonoBehaviour
     public Image fillImage;
 
     [Header("UI")]
-    public TextMeshProUGUI gameOverText;   // TMP för “Game Over”
-    public Button restartButton;           // UI Button istället för TMP-text
+    public TextMeshProUGUI gameOverText;   
+    public Button restartButton;          
 
     void Start()
     {
