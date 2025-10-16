@@ -12,11 +12,6 @@ public class PlayerController : MonoBehaviour
     [Header("Movement & Jumping")]
     public float jumpForce = 10f;
     public float gravityModifier = 1f;
-    public float forwardSpeed = 5f;   
-    public float speedIncrease = 1f;  
-    public float speedIncreaseInterval = 20f; 
-    private float speedTimer = 0f;   
-
     public bool isOnGround = true;
     public bool gameOver = false;
     private int jumpCount = 0;
@@ -36,8 +31,8 @@ public class PlayerController : MonoBehaviour
     public Image fillImage;
 
     [Header("UI")]
-    public TextMeshProUGUI gameOverText;
-    public Button restartButton;
+    public TextMeshProUGUI gameOverText;   // TMP för “Game Over”
+    public Button restartButton;           // UI Button istället för TMP-text
 
     void Start()
     {
@@ -47,14 +42,16 @@ public class PlayerController : MonoBehaviour
 
         Physics.gravity = new Vector3(0, -9.81f * gravityModifier, 0);
 
+        // Initiera hälsa
         currentHealth = maxHealth;
         UpdateHealthBar();
 
+        // Dölj Game Over och knapp i början
         if (gameOverText != null) gameOverText.gameObject.SetActive(false);
         if (restartButton != null)
         {
             restartButton.gameObject.SetActive(false);
-            restartButton.onClick.AddListener(RestartGame);
+            restartButton.onClick.AddListener(RestartGame); // ← kopplar knappen till funktionen
         }
     }
 
@@ -62,10 +59,6 @@ public class PlayerController : MonoBehaviour
     {
         if (!gameOver)
         {
-            // make the player mover forward)
-            transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
-
-            // Jump
             if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
             {
                 playerAudio.PlayOneShot(jumpSound, 1.0f);
@@ -77,16 +70,6 @@ public class PlayerController : MonoBehaviour
 
                 playerAnim.SetTrigger("Jump_trig");
                 isOnGround = false;
-            }
-
-            // speed getting quicker
-            speedTimer += Time.deltaTime;
-            if (speedTimer >= speedIncreaseInterval)
-            {
-                forwardSpeed += speedIncrease;
-                speedTimer = 0f;
-
-                Debug.Log($"Fart ökade! Ny forwardSpeed = {forwardSpeed}");
             }
         }
     }
@@ -158,12 +141,13 @@ public class PlayerController : MonoBehaviour
         if (gameOverText != null) gameOverText.gameObject.SetActive(true);
         if (restartButton != null) restartButton.gameObject.SetActive(true);
 
-        Time.timeScale = 0f;
+        Time.timeScale = 0f; // stoppar spelet
     }
 
+    // 👇 Den här körs när du klickar på restart-knappen
     private void RestartGame()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 1f; // starta tiden igen
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
