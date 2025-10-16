@@ -1,24 +1,41 @@
 using UnityEngine;
+using System.Collections;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject Obstacle;
+    [Header("Obstacle settings")]
+    public GameObject[] obstacles;   // flera obstacles
     public Vector3 spawnPos = new Vector3(10, 0, 0);
-    private float startDelay = 2;
-    private float repeatRate = 2;
+
+    [Header("Timing settings")]
+    public float minSpawnDelay = 1.0f;
+    public float maxSpawnDelay = 3.0f;
+    public float startDelay = 2.0f;
+
     private PlayerController playerControllerScript;
 
     void Start()
     {
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
-        InvokeRepeating("SpawnObstacle", startDelay, repeatRate);
+        StartCoroutine(SpawnObstacles());
     }
 
-    void SpawnObstacle()
+    IEnumerator SpawnObstacles()
     {
-        if (playerControllerScript.gameOver == false)
+        // Vänta lite innan första spawnen
+        yield return new WaitForSeconds(startDelay);
+
+        while (!playerControllerScript.gameOver)
         {
-            Instantiate(Obstacle, spawnPos, Obstacle.transform.rotation);
+            // välj ett random obstacle ur listan
+            int index = Random.Range(0, obstacles.Length);
+
+            // skapa det
+            Instantiate(obstacles[index], spawnPos, obstacles[index].transform.rotation);
+
+            // vänta en slumpmässig tid innan nästa spawn
+            float randomDelay = Random.Range(minSpawnDelay, maxSpawnDelay);
+            yield return new WaitForSeconds(randomDelay);
         }
     }
 }
