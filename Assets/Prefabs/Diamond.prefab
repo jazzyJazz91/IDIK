@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6416534755628031829}
   - component: {fileID: -8107031057572376792}
   - component: {fileID: -4572023581096606054}
+  - component: {fileID: 249118372792856923}
   m_Layer: 0
   m_Name: Diamond
   m_TagString: Diamond
@@ -63,6 +64,27 @@ MonoBehaviour:
   type: 2
   collectSound: {fileID: 8300000, guid: ea082f9d5be554e3296d89452d0d4a68, type: 3}
   collectEffect: {fileID: 0}
+--- !u!65 &249118372792856923
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5637694357360696403}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8563438026386059564
 GameObject:
   m_ObjectHideFlags: 0
