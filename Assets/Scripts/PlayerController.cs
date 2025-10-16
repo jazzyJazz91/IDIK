@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public float gravityModifier = 1f;
     public bool isOnGround = true;
     public bool gameOver = false;
-    private int jumpCount = 0;
+    //private int jumpCount = 0;
     public int maxJumps = 2;
 
     [Header("Particles & Sounds")]
@@ -53,42 +55,43 @@ public class PlayerController : MonoBehaviour
             restartButton.gameObject.SetActive(false);
             restartButton.onClick.AddListener(RestartGame); // ← kopplar knappen till funktionen
         }
+        StartCoroutine(RegenerateHealth());
     }
 
     void Update()
     {
-        if (!gameOver)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
-            {
-                playerAudio.PlayOneShot(jumpSound, 1.0f);
-                dirtParticle.Stop();
-
-                playerRb.linearVelocity = new Vector3(playerRb.linearVelocity.x, 0, playerRb.linearVelocity.z);
-                playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                jumpCount++;
-
-                playerAnim.SetTrigger("Jump_trig");
-                isOnGround = false;
-            }
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
+if (!gameOver)
+{
+    if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            dirtParticle.Play();
-            isOnGround = true;
-            jumpCount = 0;
-        }
-        else if (collision.gameObject.CompareTag("Obstacle"))
-        {
-            playerAudio.PlayOneShot(crashSound, 1.0f);
-            dirtParticle.Stop();
-            TakeDamage(1);
-        }
+        playerAudio.PlayOneShot(jumpSound, 1.0f);
+        dirtParticle.Stop();
+
+        // OBS: i Unity heter det Rigidbody.velocity (inte linearVelocity)
+        playerRb.linearVelocity = new Vector3(playerRb.linearVelocity.x, 0, playerRb.linearVelocity.z);
+        playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+        playerAnim.SetTrigger("Jump_trig");
+        isOnGround = false; // lås hopp tills vi landat igen
     }
+}
+
+    }
+private void OnCollisionEnter(Collision collision)
+{
+    if (collision.gameObject.CompareTag("Ground"))
+    {
+        dirtParticle.Play();
+        isOnGround = true;   // nu får vi hoppa igen
+    }
+    else if (collision.gameObject.CompareTag("Obstacle"))
+    {
+        playerAudio.PlayOneShot(crashSound, 1.0f);
+        dirtParticle.Stop();
+        TakeDamage(1);
+    }
+}
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -150,4 +153,19 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 1f; // starta tiden igen
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    IEnumerator RegenerateHealth()
+{
+    while (!gameOver)
+    {
+        yield return new WaitForSeconds(20f); // vänta 20 sekunder mellan varje försök
+
+        if (currentHealth < maxHealth)
+        {
+            currentHealth++;
+            UpdateHealthBar();
+            Debug.Log("Player regained 1 health. Current health: " + currentHealth);
+        }
+    }
+}
+
 }
