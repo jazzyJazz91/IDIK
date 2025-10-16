@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Ground
   - Obstacle
+  - Enemy
+  - FrogBody
+  - Diamond
+  - Coin
+  - Star
   layers:
   - Default
   - TransparentFX

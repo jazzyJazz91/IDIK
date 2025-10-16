@@ -1,20 +1,43 @@
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody playerRb;
     private Animator playerAnim;
     private AudioSource playerAudio;
+
+    [Header("Movement & Jumping")]
     public float jumpForce = 10f;
     public float gravityModifier = 1f;
+    public float forwardSpeed = 5f;   
+    public float speedIncrease = 1f;  
+    public float speedIncreaseInterval = 20f; 
+    private float speedTimer = 0f;   
+
     public bool isOnGround = true;
     public bool gameOver = false;
-    public AudioClip jumpSound;
-    public AudioClip crashSound;
-    private int jumpCount = 0;       // how many jumps have been made
-    public int maxJumps = 2;         // max jumps
+    private int jumpCount = 0;
+    public int maxJumps = 2;
+
+    [Header("Particles & Sounds")]
     public ParticleSystem dirtParticle;
     public ParticleSystem explosionParticle;
+    public AudioClip jumpSound;
+    public AudioClip crashSound;
+
+    [Header("Health System")]
+    public int maxHealth = 3;
+    private int currentHealth;
+    public Slider healthSlider;
+    public Gradient healthGradient;
+    public Image fillImage;
+
+    [Header("UI")]
+    public TextMeshProUGUI gameOverText;
+    public Button restartButton;
 
     void Start()
     {
@@ -22,49 +45,125 @@ public class PlayerController : MonoBehaviour
         playerAnim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
 
-        // make gravity more noticeable
         Physics.gravity = new Vector3(0, -9.81f * gravityModifier, 0);
+
+        currentHealth = maxHealth;
+        UpdateHealthBar();
+
+        if (gameOverText != null) gameOverText.gameObject.SetActive(false);
+        if (restartButton != null)
+        {
+            restartButton.gameObject.SetActive(false);
+            restartButton.onClick.AddListener(RestartGame);
+        }
     }
 
     void Update()
     {
-        // only jump if game is not over
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps && !gameOver)
-        { playerAudio.PlayOneShot(jumpSound, 1.0f);
-            dirtParticle.Stop();
+        if (!gameOver)
+        {
+            // make the player mover forward)
+            transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
 
-            // reset Y velocity before jump
-            playerRb.linearVelocity = new Vector3(playerRb.linearVelocity.x, 0, playerRb.linearVelocity.z);
-            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            jumpCount++;
+            // Jump
+            if (Input.GetKeyDown(KeyCode.Space) && jumpCount < maxJumps)
+            {
+                playerAudio.PlayOneShot(jumpSound, 1.0f);
+                dirtParticle.Stop();
 
-            playerAnim.SetTrigger("Jump_trig");
-            isOnGround = false;
+                playerRb.linearVelocity = new Vector3(playerRb.linearVelocity.x, 0, playerRb.linearVelocity.z);
+                playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                jumpCount++;
+
+                playerAnim.SetTrigger("Jump_trig");
+                isOnGround = false;
+            }
+
+            // speed getting quicker
+            speedTimer += Time.deltaTime;
+            if (speedTimer >= speedIncreaseInterval)
+            {
+                forwardSpeed += speedIncrease;
+                speedTimer = 0f;
+
+                Debug.Log($"Fart ökade! Ny forwardSpeed = {forwardSpeed}");
+            }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        // hitting the ground
         if (collision.gameObject.CompareTag("Ground"))
         {
             dirtParticle.Play();
             isOnGround = true;
             jumpCount = 0;
         }
-        // hitting obstacle
         else if (collision.gameObject.CompareTag("Obstacle"))
         {
             playerAudio.PlayOneShot(crashSound, 1.0f);
             dirtParticle.Stop();
-            gameOver = true;
-            Debug.Log("Game Over!");
-
-            playerAnim.SetBool("Death_b", true);
-            playerAnim.SetInteger("DeathType_int", 1);
-
-            // player falling backward when hit
-            playerRb.AddForce(Vector3.back * 5f + Vector3.up * 3f, ForceMode.Impulse);
+            TakeDamage(1);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<FrogBody>())
+        {
+            TakeDamage(1);
+            Destroy(other.gameObject);
+        }
+    }
+
+    private void TakeDamage(int amount)
+    {
+        currentHealth -= amount;
+        if (currentHealth < 0) currentHealth = 0;
+
+        UpdateHealthBar();
+
+        if (currentHealth <= 0)
+        {
+            TriggerGameOver();
+        }
+        else
+        {
+            playerAnim.SetTrigger("Hit");
+        }
+    }
+
+    private void UpdateHealthBar()
+    {
+        if (healthSlider != null)
+        {
+            healthSlider.maxValue = maxHealth;
+            healthSlider.value = currentHealth;
+
+            if (fillImage != null && healthGradient != null)
+                fillImage.color = healthGradient.Evaluate((float)currentHealth / maxHealth);
+        }
+    }
+
+    private void TriggerGameOver()
+    {
+        if (gameOver) return;
+
+        gameOver = true;
+        Debug.Log("GAME OVER – alla liv slut!");
+
+        playerAnim.SetBool("Death_b", true);
+        playerAnim.SetInteger("DeathType_int", 1);
+
+        if (gameOverText != null) gameOverText.gameObject.SetActive(true);
+        if (restartButton != null) restartButton.gameObject.SetActive(true);
+
+        Time.timeScale = 0f;
+    }
+
+    private void RestartGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
