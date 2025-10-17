@@ -24,10 +24,13 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
-        playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
-        StartCoroutine(SpawnObstacles());
-        StartCoroutine(IncreaseDifficultyOverTime());
-    }
+    // Viktigt: starta alltid på normal hastighet
+    MoveLeft.globalSpeedMultiplier = 1f;
+
+    playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+    StartCoroutine(SpawnObstacles());
+    StartCoroutine(IncreaseDifficultyOverTime());
+}
 
     IEnumerator SpawnObstacles()
     {

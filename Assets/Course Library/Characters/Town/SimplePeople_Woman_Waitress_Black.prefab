@@ -46,7 +46,6 @@ Transform:
   - {fileID: 487514}
   - {fileID: 477228}
   - {fileID: 466618}
-  - {fileID: 7946361557996936226}
   - {fileID: 6922059401209139515}
   - {fileID: 400036}
   m_Father: {fileID: 0}
@@ -112,7 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230a0c6855aef4802ac39e529472e7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 700
+  audioSource: {fileID: 0}
+  audioClip: {fileID: 8300000, guid: 75cc420444b0041deb2253e85b383c97, type: 3}
+  jumpForce: 900
   gravityModifier: 1.5
   isOnGround: 1
   gameOver: 0
@@ -188,7 +189,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 75cc420444b0041deb2253e85b383c97, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1852,7 +1853,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7946361557996936226}
   m_Father: {fileID: 400000}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &13720338
@@ -2327,7 +2329,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7056615393108391511}
-  m_Father: {fileID: 400000}
+  m_Father: {fileID: 466618}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6922059400478711643
 PrefabInstance:
@@ -2446,15 +2448,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef6170a9102984a989a0b8eca23bf7a4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.01928801
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef6170a9102984a989a0b8eca23bf7a4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.7953
+      value: 2.719
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef6170a9102984a989a0b8eca23bf7a4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.010000227
+      value: 0.34
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef6170a9102984a989a0b8eca23bf7a4, type: 3}
       propertyPath: m_LocalRotation.w

@@ -745,7 +745,7 @@ MonoBehaviour:
   startDelay: 2
   firstIncreaseAfter: 15
   increaseInterval: 15
-  delayMultiplier: 0.85
+  delayMultiplier: 1.1
   speedMultiplierIncrease: 0.5
   minCapMin: 0.3
   minCapMax: 0.7

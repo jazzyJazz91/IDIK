@@ -67,10 +67,10 @@ if (!gameOver)
     if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
     {
         playerAudio.PlayOneShot(jumpSound, 1.0f);
-        dirtParticle.Stop();
+                dirtParticle.Stop();
+        
+    playerRb.linearVelocity = new Vector3(playerRb.linearVelocity.x, 0, playerRb.linearVelocity.z);
 
-        // OBS: i Unity heter det Rigidbody.velocity (inte linearVelocity)
-        playerRb.linearVelocity = new Vector3(playerRb.linearVelocity.x, 0, playerRb.linearVelocity.z);
         playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
         playerAnim.SetTrigger("Jump_trig");
