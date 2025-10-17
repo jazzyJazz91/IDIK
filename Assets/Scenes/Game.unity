@@ -514,6 +514,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1723956401378162336, guid: 20847b8e912bc604b99e748a676d067b, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 75cc420444b0041deb2253e85b383c97, type: 3}
     - target: {fileID: 7056615393108391511, guid: 20847b8e912bc604b99e748a676d067b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.006
@@ -527,9 +531,17 @@ PrefabInstance:
       value: 0.395
       objectReference: {fileID: 0}
     - target: {fileID: 7715463781189538109, guid: 20847b8e912bc604b99e748a676d067b, type: 3}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 75cc420444b0041deb2253e85b383c97, type: 3}
+    - target: {fileID: 7715463781189538109, guid: 20847b8e912bc604b99e748a676d067b, type: 3}
       propertyPath: fillImage
       value: 
       objectReference: {fileID: 1448933628}
+    - target: {fileID: 7715463781189538109, guid: 20847b8e912bc604b99e748a676d067b, type: 3}
+      propertyPath: jumpForce
+      value: 900
+      objectReference: {fileID: 0}
     - target: {fileID: 7715463781189538109, guid: 20847b8e912bc604b99e748a676d067b, type: 3}
       propertyPath: gameOverText
       value: 
@@ -731,6 +743,12 @@ MonoBehaviour:
   minSpawnDelay: 1
   maxSpawnDelay: 3
   startDelay: 2
+  firstIncreaseAfter: 15
+  increaseInterval: 15
+  delayMultiplier: 0.85
+  speedMultiplierIncrease: 0.5
+  minCapMin: 0.3
+  minCapMax: 0.7
 --- !u!4 &561896357
 Transform:
   m_ObjectHideFlags: 0
@@ -2391,8 +2409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5157ccb0f617a4468b7381f52ab55fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  playerControllerScript: {fileID: 0}
+  baseSpeed: 30
 --- !u!4 &2047241761
 Transform:
   m_ObjectHideFlags: 0

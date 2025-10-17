@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
 {
-    public float speed = 30;
-    public PlayerController playerControllerScript;
-    private float leftBound = -15;
+    public static float globalSpeedMultiplier = 1f; // 👈 ny rad
+    public float baseSpeed = 30f;                   // byt namn så vi vet att detta är grundfarten
+    private PlayerController playerControllerScript;
+    private float leftBound = -15f;
 
     void Start()
     {
@@ -13,9 +14,11 @@ public class MoveLeft : MonoBehaviour
 
     void Update()
     {
-        if (playerControllerScript.gameOver == false)
+        if (!playerControllerScript.gameOver)
         {
-            transform.Translate(Vector3.left * Time.deltaTime * speed);
+            // fiendens hastighet = basfart * global multiplier
+            float currentSpeed = baseSpeed * globalSpeedMultiplier;
+            transform.Translate(Vector3.left * currentSpeed * Time.deltaTime);
         }
 
         if (transform.position.x < leftBound)

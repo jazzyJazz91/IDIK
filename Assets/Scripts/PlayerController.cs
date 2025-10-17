@@ -7,6 +7,8 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip audioClip;
     private Rigidbody playerRb;
     private Animator playerAnim;
     private AudioSource playerAudio;
