@@ -20,6 +20,9 @@ public class SpawnManager : MonoBehaviour
     public float minCapMin = 0.3f;
     public float minCapMax = 0.7f;
 
+[Header("Particles & Sounds")]
+ public ParticleSystem dirtParticle;
+public ParticleSystem explosionParticle;
     private PlayerController playerControllerScript;
 
     void Start()
