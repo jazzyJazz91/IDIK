@@ -515,33 +515,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1723956401378162336, guid: 20847b8e912bc604b99e748a676d067b, type: 3}
-      propertyPath: m_Resource
-      value: 
-      objectReference: {fileID: 8300000, guid: 75cc420444b0041deb2253e85b383c97, type: 3}
-    - target: {fileID: 7056615393108391511, guid: 20847b8e912bc604b99e748a676d067b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.006
+      propertyPath: Loop
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7056615393108391511, guid: 20847b8e912bc604b99e748a676d067b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.672
-      objectReference: {fileID: 0}
-    - target: {fileID: 7056615393108391511, guid: 20847b8e912bc604b99e748a676d067b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.395
-      objectReference: {fileID: 0}
-    - target: {fileID: 7715463781189538109, guid: 20847b8e912bc604b99e748a676d067b, type: 3}
-      propertyPath: audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 75cc420444b0041deb2253e85b383c97, type: 3}
     - target: {fileID: 7715463781189538109, guid: 20847b8e912bc604b99e748a676d067b, type: 3}
       propertyPath: fillImage
       value: 
       objectReference: {fileID: 1448933628}
-    - target: {fileID: 7715463781189538109, guid: 20847b8e912bc604b99e748a676d067b, type: 3}
-      propertyPath: jumpForce
-      value: 900
-      objectReference: {fileID: 0}
     - target: {fileID: 7715463781189538109, guid: 20847b8e912bc604b99e748a676d067b, type: 3}
       propertyPath: gameOverText
       value: 
@@ -746,7 +726,7 @@ MonoBehaviour:
   firstIncreaseAfter: 15
   increaseInterval: 15
   delayMultiplier: 1.1
-  speedMultiplierIncrease: 0.5
+  speedMultiplierIncrease: 2
   minCapMin: 0.3
   minCapMax: 0.7
 --- !u!4 &561896357
@@ -926,8 +906,8 @@ Transform:
   m_GameObject: {fileID: 755489804}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.10742736, y: -0.00000035762787, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 10.6, y: -1, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2047241761}
@@ -976,7 +956,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -267555627, guid: 6f0f6398b02cc4e3bac429e7c5203673, type: 3}
+  m_Sprite: {fileID: -1608148057, guid: 39100121155db46ccb1e8c3ea410ad9b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1327,7 +1307,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 159, y: -58.9}
+  m_AnchoredPosition: {x: 152.3, y: -61.6}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &921281693
@@ -1359,12 +1339,12 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285510790
-  m_fontColor: {r: 0.5270495, g: 0.7075472, b: 0.43721077, a: 1}
+    rgba: 4280209407
+  m_fontColor: {r: 1, g: 0.81237864, b: 0.11764705, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0.9245283, g: 0.48406905, b: 0.77958107, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
@@ -1377,8 +1357,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27
-  m_fontSizeBase: 27
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2273,7 +2253,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2017012964
 Transform:
   m_ObjectHideFlags: 0
@@ -2383,8 +2363,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 36, y: 11.609999, z: 0.19999999}
-  m_Center: {x: 9, y: 0, z: 0}
+  m_Size: {x: 40, y: 9.6, z: 0.19999999}
+  m_Center: {x: 10.65, y: -0.5, z: 0}
 --- !u!114 &2047241758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2409,7 +2389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5157ccb0f617a4468b7381f52ab55fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 30
+  baseSpeed: 10
 --- !u!4 &2047241761
 Transform:
   m_ObjectHideFlags: 0

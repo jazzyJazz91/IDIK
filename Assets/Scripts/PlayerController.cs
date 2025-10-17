@@ -74,7 +74,7 @@ if (!gameOver)
         playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
         playerAnim.SetTrigger("Jump_trig");
-        isOnGround = false; // lås hopp tills vi landat igen
+        isOnGround = false; // Not Jump UnTil the player has landed on ground
     }
 }
 
@@ -84,7 +84,7 @@ private void OnCollisionEnter(Collision collision)
     if (collision.gameObject.CompareTag("Ground"))
     {
         dirtParticle.Play();
-        isOnGround = true;   // nu får vi hoppa igen
+        isOnGround = true;   // possible to jump again
     }
     else if (collision.gameObject.CompareTag("Obstacle"))
     {
@@ -146,20 +146,20 @@ private void OnCollisionEnter(Collision collision)
         if (gameOverText != null) gameOverText.gameObject.SetActive(true);
         if (restartButton != null) restartButton.gameObject.SetActive(true);
 
-        Time.timeScale = 0f; // stoppar spelet
+        Time.timeScale = 0f; // syops the Game
     }
 
-    // 👇 Den här körs när du klickar på restart-knappen
+    // When restarting the game function
     private void RestartGame()
     {
-        Time.timeScale = 1f; // starta tiden igen
+        Time.timeScale = 1f; // Time starts again
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     IEnumerator RegenerateHealth()
 {
     while (!gameOver)
     {
-        yield return new WaitForSeconds(20f); // vänta 20 sekunder mellan varje försök
+        yield return new WaitForSeconds(20f); // 20 seconds before each try
 
         if (currentHealth < maxHealth)
         {
