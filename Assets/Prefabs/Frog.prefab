@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6941584717609432621}
   m_Layer: 0
   m_Name: Frog
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 1447904029934417274}
   m_Layer: 0
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: StompZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

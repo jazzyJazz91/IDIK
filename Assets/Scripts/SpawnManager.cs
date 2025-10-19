@@ -16,13 +16,13 @@ public class SpawnManager : MonoBehaviour
     public float firstIncreaseAfter = 20f;
     public float increaseInterval = 20f;
     public float delayMultiplier = 0.85f;
-    public float speedMultiplierIncrease = 1.1f; // 👈 ökar fiendehastighet med 10% varje gång
+    public float speedMultiplierIncrease = 1.1f; // speds 10% every time 
     public float minCapMin = 0.3f;
     public float minCapMax = 0.7f;
 
-[Header("Particles & Sounds")]
- public ParticleSystem dirtParticle;
-public ParticleSystem explosionParticle;
+    [Header("Particles & Sounds")]
+    public ParticleSystem dirtParticle;
+    public ParticleSystem explosionParticle;
     private PlayerController playerControllerScript;
 
     void Start()
@@ -55,11 +55,11 @@ public ParticleSystem explosionParticle;
 
         while (!playerControllerScript.gameOver)
         {
-            // snabbare spawns
+            // faster spawns
             minSpawnDelay = Mathf.Max(minCapMin, minSpawnDelay * delayMultiplier);
             maxSpawnDelay = Mathf.Max(minCapMax, maxSpawnDelay * delayMultiplier);
 
-            // 👇 snabbare enemies
+            // faster enemies
             MoveLeft.globalSpeedMultiplier *= speedMultiplierIncrease;
 
             Debug.Log($"[DIFFICULTY] Spawn: {minSpawnDelay:0.00}-{maxSpawnDelay:0.00}s | " +

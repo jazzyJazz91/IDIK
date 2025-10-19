@@ -1,12 +1,12 @@
 using UnityEngine;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-public void StartGame()
+    [SerializeField] private string Game = "Game"; // 🔹 ändra till det exakta namnet på din spelscen
+
+    public void StartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(Game);
     }
 }
